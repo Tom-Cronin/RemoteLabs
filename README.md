@@ -9,6 +9,12 @@ While you can use brew to install this its recomeded to use their website to ins
 * [Visual Studio Code](https://code.visualstudio.com/) - IDE
 
 ## Development
+**Note** for fist time installation after cloning the repo use
+```
+  npm install
+```
+to download the dependancies
+
 
 You use node to run the app in the top level directory of the project
 ```
