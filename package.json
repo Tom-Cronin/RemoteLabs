@@ -1,0 +1,23 @@
+{
+  "name": "remotelabs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FumoDraconis/RemoteLabs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FumoDraconis/RemoteLabs/issues"
+  },
+  "homepage": "https://github.com/FumoDraconis/RemoteLabs#readme",
+  "devDependencies": {
+    "electron": "^8.2.3"
+  }
+}
