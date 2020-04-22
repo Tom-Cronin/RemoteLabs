@@ -1,33 +1,27 @@
 # RemoteLabs
 
-### Prerequisites
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 
-In order to develop this software you will need a good idea such as Visual Studio Code and to have Node installed.
-While you can use brew to install this its recomeded to use their website to install node
+## Development server
 
-* [Node](https://nodejs.org/en/) 
-* [Visual Studio Code](https://code.visualstudio.com/) - IDE
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Development
-**Note** for fist time installation after cloning the repo use
-```
-  npm install
-```
-to download the dependancies
+## Code scaffolding
 
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-You use node to run the app in the top level directory of the project
-```
-  npm start
-```
+## Build
 
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Built With
+## Running unit tests
 
-* [Electron](https://www.electronjs.org/)
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Authors
+## Running end-to-end tests
 
-* **[Tom Cronin](https://github.com/FumoDraconis)**
-* **[Arthan Jansen](https://github.com/ArthanJans)**
-* **[Sinead O'Sullivan](https://github.com/Sinead-OSullivan)**
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
