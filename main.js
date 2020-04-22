@@ -1,34 +1,41 @@
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const url = require("url");
 
-function createWindow () {
-    // Creates the browser window.
-    let win = new BrowserWindow ({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true
-        }
+let win;
+
+function createWindow() {
+  win = new BrowserWindow({ width: 800, height: 600 });
+
+  // load the dist folder from Angular
+  win.loadURL(
+    url.format({
+      pathname: path.join(__dirname, `/dist/index.html`),
+      protocol: "file:",
+      slashes: true
     })
+  );
 
-    // and load the index.html of the app
-    win.loadFile('index.html')
+  // The following is optional and will open the DevTools:
+  // win.webContents.openDevTools()
 
-    // opens the dev tools
-    win.webContents.openDevTools()
-
+  win.on("closed", () => {
+    win = null;
+  });
 }
 
-app.whenReady().then(createWindow)
+app.on("ready", createWindow);
 
-app.on('window-all-closed', () => {
-    // this closes it proper for example on mac Cmd + q
-    if (process.platform !== 'darwin'){
-        app.quit()
-    }
-})
+// on macOS, closing the window doesn't quit the app
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
 
-app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow()
-    }
-})
+// initialize the app's main window
+app.on("activate", () => {
+  if (win === null) {
+    createWindow();
+  }
+});
