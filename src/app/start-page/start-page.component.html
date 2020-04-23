@@ -4,19 +4,21 @@
 
     <mat-grid-tile colspan="4">
         <mat-form-field>
-            <mat-label >What's your name?</mat-label>
-            <input matInput [(ngModel)]="user.name">
+            <mat-label  >What's your name?</mat-label>
+            <input id="NameInput" matInput [(ngModel)]="user.name">
         </mat-form-field>
     </mat-grid-tile>
 
-    <mat-grid-tile colspan="2">
-        <button mat-raised-button 
+    <mat-grid-tile  colspan="2">
+        <button mat-raised-button
+        id="JoinButton" 
         class="client"
         (click)="makeUserTypeClient()">Join a lab</button>
     </mat-grid-tile>
 
     <mat-grid-tile colspan="2">
         <button mat-raised-button
+        id="HostButton"
         class="host"
         (click)="makeUserTypeHost()">Host a lab</button>
     </mat-grid-tile>
