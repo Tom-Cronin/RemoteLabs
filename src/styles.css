@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* 
+Ucc crest red: #CE1F2C
+Ucc crest blue: #003C69
+Ucc crest yellow #FFB500
+Ucc crest limestone [grey] #BBBCBC
+
+ucc secondary palette----
+
+Dawn Mauve [off puprle] #7566A0
+Ogham stone [off yellow] #C6893F
+Earth Red #B46A55
+*/
+ 
+
+html, body { height: 100%; background-color: #BBBCBC; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

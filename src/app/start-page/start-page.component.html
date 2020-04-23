@@ -1,0 +1,28 @@
+<mat-grid-list cols="4" rowHeight="2:1">
+
+    <mat-grid-tile colspan="4"><h1>{{title}}</h1></mat-grid-tile>
+
+    <mat-grid-tile colspan="4">
+        <mat-form-field>
+            <mat-label  >What's your name?</mat-label>
+            <input id="NameInput" matInput [(ngModel)]="user.name">
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile  colspan="2">
+        <button mat-raised-button
+        [disabled]= "! activateButton()"
+        id="JoinButton" 
+        class="client"
+        (click)="makeUserTypeClient()">Join a lab</button>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+        <button [disabled]= "! activateButton()"  mat-raised-button
+        id="HostButton"
+        class="host"
+        (click)="makeUserTypeHost()">Host a lab
+        </button>
+    </mat-grid-tile>
+
+</mat-grid-list>
