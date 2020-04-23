@@ -11,16 +11,18 @@
 
     <mat-grid-tile  colspan="2">
         <button mat-raised-button
+        [disabled]= "! activateButton()"
         id="JoinButton" 
         class="client"
         (click)="makeUserTypeClient()">Join a lab</button>
     </mat-grid-tile>
 
     <mat-grid-tile colspan="2">
-        <button mat-raised-button
+        <button [disabled]= "! activateButton()"  mat-raised-button
         id="HostButton"
         class="host"
-        (click)="makeUserTypeHost()">Host a lab</button>
+        (click)="makeUserTypeHost()">Host a lab
+        </button>
     </mat-grid-tile>
 
 </mat-grid-list>

@@ -8,8 +8,8 @@ import { User } from '../user';
 })
 export class StartPageComponent implements OnInit {
   user: User = {
-    name: '',
-    hostType: ''
+    name: null,
+    hostType: null
   }
   title = "Welcome to RemoteLabs"
   constructor() { }
@@ -19,7 +19,14 @@ export class StartPageComponent implements OnInit {
   ngOnInit(){
   }
   
+  activateButton(): boolean {
+    if (this.user.name === null || this.user.name.trim() === ''){
+      return false
+    }
+    return true
+  }
 
+  
   
   makeUserTypeClient(): void {
     this.user.hostType = 'client';

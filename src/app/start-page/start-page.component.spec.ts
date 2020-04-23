@@ -31,8 +31,11 @@ describe('StartPageComponent', () => {
     let compiledComponent = fixture.debugElement;
     let user = component.user
     let hostButton = compiledComponent.query(By.css('#HostButton')).nativeElement;
-
-    expect(user.hostType).toEqual('');
+    let NameInput = compiledComponent.query(By.css('#NameInput')).nativeElement;
+    NameInput.value = 'Tom';
+    NameInput.dispatchEvent(new Event ('input'));
+    fixture.detectChanges();
+    expect(user.hostType).toBe(null);
     hostButton.click();
     expect(user.hostType).toEqual('host');
   });
@@ -41,7 +44,12 @@ describe('StartPageComponent', () => {
     let compiledComponent = fixture.debugElement;
     let user = component.user
     let hostButton = compiledComponent.query(By.css('#JoinButton')).nativeElement;
-    expect(user.hostType).toEqual('');
+    let NameInput = compiledComponent.query(By.css('#NameInput')).nativeElement;
+    NameInput.value = 'Tom';
+    NameInput.dispatchEvent(new Event ('input'));
+    fixture.detectChanges();
+
+    expect(user.hostType).toBe(null);
     hostButton.click();
     expect(user.hostType).toEqual('client');
   });
@@ -50,9 +58,9 @@ describe('StartPageComponent', () => {
     let compiledComponent = fixture.debugElement;
     let user = component.user
     let NameInput = compiledComponent.query(By.css('#NameInput')).nativeElement;
-    expect(user.name).toEqual('');
+    expect(user.name).toBe(null);
     NameInput.value = 'Tom';
-    NameInput.dispatchEvent(new Event ('input'))
+    NameInput.dispatchEvent(new Event ('input'));
     fixture.detectChanges();
     expect(user.name).toEqual('Tom');
   });
