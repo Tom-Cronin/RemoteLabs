@@ -14,7 +14,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
 import { MatGridListModule } from '@angular/material/grid-list';
-import { JoinedPageComponent } from './joined-page/joined-page.component'
+import { JoinedPageComponent } from './joined-page/joined-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { JoinedPageHeaderComponent } from './joined-page-header/joined-page-header.component';
+import { JoinedPageLectureComponent } from './joined-page-lecture/joined-page-lecture.component';
+import { JoinedPageEditorComponent } from './joined-page-editor/joined-page-editor.component'
 
 
 
@@ -23,7 +27,10 @@ import { JoinedPageComponent } from './joined-page/joined-page.component'
   declarations: [
     AppComponent,
     StartPageComponent,
-    JoinedPageComponent
+    JoinedPageComponent,
+    JoinedPageHeaderComponent,
+    JoinedPageLectureComponent,
+    JoinedPageEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,8 @@ import { JoinedPageComponent } from './joined-page/joined-page.component'
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatGridListModule
+    MatGridListModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
