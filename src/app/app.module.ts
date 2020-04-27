@@ -13,7 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
-import { MatGridListModule } from '@angular/material/grid-list'
+import { MatGridListModule } from '@angular/material/grid-list';
+import { JoinedPageComponent } from './joined-page/joined-page.component'
 
 
 
@@ -21,7 +22,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
 @NgModule({
   declarations: [
     AppComponent,
-    StartPageComponent
+    StartPageComponent,
+    JoinedPageComponent
   ],
   imports: [
     BrowserModule,
