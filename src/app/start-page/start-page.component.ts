@@ -1,26 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { Component, OnInit, OnDestroy , Inject, Input, Output} from '@angular/core';
+import { GlobalUser } from '../user';
 
 @Component({
   selector: 'app-start-page',
   templateUrl: './start-page.component.html',
   styleUrls: ['./start-page.component.css']
 })
-export class StartPageComponent implements OnInit {
-  user: User = {
-    name: null,
-    hostType: null
-  }
+
+
+export class StartPageComponent implements OnInit, OnDestroy {
+
+  
   title = "Welcome to RemoteLabs"
+  user = GlobalUser
   constructor() { }
   
   
 
   ngOnInit(){
   }
+
+  ngOnDestroy() {
+  }
   
   activateButton(): boolean {
-    if (this.user.name === null || this.user.name.trim() === ''){
+    if (GlobalUser.user === null || GlobalUser.user.trim() === ''){
       return false
     }
     return true
@@ -29,12 +33,13 @@ export class StartPageComponent implements OnInit {
   
   
   makeUserTypeClient(): void {
-    this.user.hostType = 'client';
+    GlobalUser.userType = 'client';
+
   }
+
 
   makeUserTypeHost(): void {
-    this.user.hostType = 'host';
+    GlobalUser.userType = 'host';
   }
-
 }
 

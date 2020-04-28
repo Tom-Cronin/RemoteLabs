@@ -11,6 +11,7 @@ export interface initailLoad {
 })
 export class AppComponent {
   title = 'RemoteLabs';
+  
 }
 
 

@@ -1,4 +1,5 @@
-export interface User {
-    name: string;
-    hostType: string;
+export class GlobalUser {
+    
+    public static  user: string = null;
+    public static userType: string = null;
 }
