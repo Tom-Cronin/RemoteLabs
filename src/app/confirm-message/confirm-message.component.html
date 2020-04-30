@@ -1,0 +1,24 @@
+<div *ngIf="confirmMessage.message.length">
+    <div id='background'>
+    </div>
+    <div id='message'>
+        <p>{{confirmMessage.message}}</p>
+        <ul>
+            <li>
+                <button mat-raised-button
+                id="Yes" 
+                (click)="leaveJoinedSession()">Yes</button>
+            </li>
+            <li>
+                <button mat-raised-button
+                id="No" 
+                (click)="confirmMessage.clearMessage()">No</button>
+            </li>
+        </ul>
+        
+    </div>
+</div>
+
+
+
+

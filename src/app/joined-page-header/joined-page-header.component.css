@@ -4,6 +4,30 @@
     text-align: center;
     color: #ca3e47;
     margin: 0px;
-    padding: 0px;
+    padding: 3.6em;
   }
+
+  button {
+      background-color: #414141;
+      padding: 1.5em;
+  }
+
+  button:hover{
+    background-color: #525252;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  li {
+    float: left;
+    margin: 0px;
+    padding: 1em;
+  }
+  
+  
 

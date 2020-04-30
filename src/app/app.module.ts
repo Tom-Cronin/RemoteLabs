@@ -18,7 +18,8 @@ import { JoinedPageComponent } from './joined-page/joined-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { JoinedPageHeaderComponent } from './joined-page-header/joined-page-header.component';
 import { JoinedPageLectureComponent } from './joined-page-lecture/joined-page-lecture.component';
-import { JoinedPageEditorComponent } from './joined-page-editor/joined-page-editor.component'
+import { JoinedPageEditorComponent } from './joined-page-editor/joined-page-editor.component';
+import { ConfirmMessageComponent } from './confirm-message/confirm-message.component';
 
 
 
@@ -30,7 +31,8 @@ import { JoinedPageEditorComponent } from './joined-page-editor/joined-page-edit
     JoinedPageComponent,
     JoinedPageHeaderComponent,
     JoinedPageLectureComponent,
-    JoinedPageEditorComponent
+    JoinedPageEditorComponent,
+    ConfirmMessageComponent
   ],
   imports: [
     BrowserModule,
