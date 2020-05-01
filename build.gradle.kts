@@ -4,6 +4,8 @@
  * This generated file contains a sample Kotlin application project to get you started.
  */
 
+import org.gradle.jvm.tasks.Jar
+
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.3.70"
@@ -22,6 +24,8 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
+    implementation("com.beust:klaxon:5.2")
+
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
@@ -35,4 +39,15 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClassName = "remotelabsbackend.AppKt"
+}
+
+val fatJar = task("fatJar", type = Jar::class) {
+    baseName = "${project.name}-fat"
+    manifest {
+        attributes["Implementation-Title"] = "Remote Labs Backend"
+        attributes["Implementation-Version"] = "0.0.1"
+        attributes["Main-Class"] = "remotelabsbackend.AppKt"
+    }
+    from(configurations.runtimeClasspath.get().map({ if (it.isDirectory) it else zipTree(it) }))
+    with(tasks.jar.get() as CopySpec)
 }
