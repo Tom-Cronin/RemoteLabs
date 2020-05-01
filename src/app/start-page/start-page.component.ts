@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
+import { IpcService } from '../ipc.service';
 
 @Component({
   selector: 'app-start-page',
@@ -12,7 +13,9 @@ export class StartPageComponent implements OnInit {
     hostType: null
   }
   title = "Welcome to RemoteLabs"
-  constructor() { }
+  constructor(private readonly _ipc: IpcService) {
+
+  }
   
   
 
@@ -34,6 +37,8 @@ export class StartPageComponent implements OnInit {
 
   makeUserTypeHost(): void {
     this.user.hostType = 'host';
+
+    this._ipc.send("startServer")
   }
 
 }

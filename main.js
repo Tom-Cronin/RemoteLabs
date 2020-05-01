@@ -1,11 +1,13 @@
-const { app, BrowserWindow } = require("electron");
+const { ipcMain, app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
+const child_process = require("child_process");
 
 let win;
+let child;
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({ width: 800, height: 600, webPreferences: { nodeIntegration: true } });
 
   // load the dist folder from Angular
   win.loadURL(
@@ -23,6 +25,28 @@ function createWindow() {
     win = null;
   });
 }
+
+ipcMain.on("startServer", () => {
+  child = child_process.spawn('java',  ['-jar', 'remotelabsbackend-fat.jar'])
+  child.stdout.on("data", (data) => {
+    console.log(`stdout: ${data}`);
+  });
+  child.stderr.on("data", (data) => {
+    console.error(`stderr: ${data}`);
+  });
+});
+
+ipcMain.on("stopServer", () => {
+  if(child) {
+    child.kill();
+  }
+});
+
+app.on("before-quit", () => {
+  if(child) {
+    child.kill();
+  }
+});
 
 app.on("ready", createWindow);
 
