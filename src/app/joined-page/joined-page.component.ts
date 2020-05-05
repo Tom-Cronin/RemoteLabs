@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JoinedPageSettingsService } from '../joined-page-settings.service';
 
 @Component({
   selector: 'app-joined-page',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinedPageComponent implements OnInit {
 
-  constructor() { }
+  
+  constructor(public pageSettings:JoinedPageSettingsService) { }
 
   ngOnInit(): void {
   }

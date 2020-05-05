@@ -1,8 +1,18 @@
 <ul>
     <li>
-        <button mat-raised-button
-        id="1" 
-        (click)="i()">item 1</button>
+        <button mat-raised-button [ngStyle]="{'background-color': helpButtonbgColor, color: helpButtonColor}"
+        id="helpButton" 
+        (click)="helpButton()">{{helpButtonText}}</button>
+    </li>
+    <li id = 'section'>  
+        <div id = 'header-section'>
+            <div id = 'header-section-label'>View</div> 
+                <mat-button-toggle-group name="view-toggle" aria-label="Toggle View" value="dual">
+                    <mat-button-toggle value="dual" (click)="changeView('dual')">Dual</mat-button-toggle>
+                    <mat-button-toggle value="lecture" (click)="changeView('lecture')">Lecture</mat-button-toggle>
+                    <mat-button-toggle value="editor" (click)="changeView('editor')">Editor</mat-button-toggle>
+                </mat-button-toggle-group>
+        </div>
     </li>
     <li>
         <button mat-raised-button
@@ -20,11 +30,4 @@
         (click)="confirmLeave()">Leave</button>
     </li>
   </ul>
-
-  <!-- <li>
-    <button mat-raised-button
-    [disabled]= "! activateButton()"
-    id="2" 
-    (click)="i()">item 2</button>
-</li>-->
  

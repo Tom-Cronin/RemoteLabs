@@ -1,4 +1,19 @@
 <app-joined-page-header></app-joined-page-header>
-<app-joined-page-lecture></app-joined-page-lecture>
-<app-joined-page-editor></app-joined-page-editor>
+
+<!-- Dual view -->
+<div id='dual' *ngIf="this.pageSettings.currentView == 'dual'">
+    <app-joined-page-lecture id = 'dual-lecture' >
+    </app-joined-page-lecture>
+    <app-joined-page-editor id = 'dual-editor'>
+    </app-joined-page-editor>
+</div>
+<!-- Lecture view -->
+<div id = single *ngIf="this.pageSettings.currentView == 'lecture'">
+    <app-joined-page-lecture id = 'singleBox' ></app-joined-page-lecture>
+</div>
+<!-- Editor view -->
+<div id = single *ngIf="this.pageSettings.currentView == 'editor'">
+    <app-joined-page-editor id = 'singleBox' ></app-joined-page-editor>
+</div>
+
 <app-confirm-message></app-confirm-message>
