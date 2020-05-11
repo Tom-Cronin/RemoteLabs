@@ -7,7 +7,7 @@ import { GlobalUser } from '../user';
   styleUrls: ['./start-page.component.css']
 })
 
-
+ 
 export class StartPageComponent implements OnInit, OnDestroy {
 
   
