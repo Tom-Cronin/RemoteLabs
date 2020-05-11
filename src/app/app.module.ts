@@ -13,7 +13,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
-import { MatGridListModule } from '@angular/material/grid-list'
+import { MatGridListModule } from '@angular/material/grid-list';
+import { HostPageSetupComponent } from './host-page-setup/host-page-setup.component';
+import { AppRoutingModule } from './app-routing.module'
 
 
 
@@ -21,7 +23,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
 @NgModule({
   declarations: [
     AppComponent,
-    StartPageComponent
+    StartPageComponent,
+    HostPageSetupComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatGridListModule
+    MatGridListModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],
