@@ -26,9 +26,9 @@
 #### Request:
 ```json
 {
-    "name": "",
-    "password": "",
-    "id": ""
+    "name": Name to join with,
+    "password": Password needed to join,
+    "id": Session ID to join
 }
 ```
 #### Response:
