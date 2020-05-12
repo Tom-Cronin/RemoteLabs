@@ -15,7 +15,9 @@ import { MatInputModule } from '@angular/material/input';
 
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HostPageSetupComponent } from './host-page-setup/host-page-setup.component';
-import { AppRoutingModule } from './app-routing.module'
+import { AppRoutingModule } from './app-routing.module';
+import { JoinPageComponent } from './join-page/join-page.component'
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -24,7 +26,8 @@ import { AppRoutingModule } from './app-routing.module'
   declarations: [
     AppComponent,
     StartPageComponent,
-    HostPageSetupComponent
+    HostPageSetupComponent,
+    JoinPageComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { AppRoutingModule } from './app-routing.module'
     MatInputModule,
     ReactiveFormsModule,
     MatGridListModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
