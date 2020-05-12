@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
-import { IpcService } from '../ipc.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+var headers = new HttpHeaders();
+headers.append('Content-Type', 'application/json');
+
+let options = { headers: headers, withCredentials: true };
 
 @Component({
   selector: 'app-start-page',
@@ -13,7 +18,7 @@ export class StartPageComponent implements OnInit {
     hostType: null
   }
   title = "Welcome to RemoteLabs"
-  constructor(private readonly _ipc: IpcService) {
+  constructor(private http: HttpClient) {
 
   }
   
@@ -24,22 +29,30 @@ export class StartPageComponent implements OnInit {
   
   activateButton(): boolean {
     if (this.user.name === null || this.user.name.trim() === ''){
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
   
   
   makeUserTypeClient(): void {
     this.user.hostType = 'client';
+
+    this.http.post<Result>("http://127.0.0.1:8080/join", {name: this.user.name, id: "", password: ""}, options).subscribe(result => {
+    })
   }
 
   makeUserTypeHost(): void {
     this.user.hostType = 'host';
 
-    this._ipc.send("startServer")
+    this.http.post<Result>("http://127.0.0.1:8080/start", {session:{}, sessionJoin: {name: this.user.name}}, options).subscribe(result => {
+    })
   }
 
+}
+
+class Result {
+  constructor(public OK: Boolean, public ID: String){}
 }
 

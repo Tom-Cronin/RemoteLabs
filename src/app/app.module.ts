@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 
 import { MatGridListModule } from '@angular/material/grid-list'
 
+import { HttpClientModule } from '@angular/common/http'
+
 
 
 
@@ -33,7 +35,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
     MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatGridListModule
+    MatGridListModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
