@@ -51,6 +51,9 @@ private fun startHTTPServer() {
             post("/help") {
                 help(call)
             }
+            post("/") {
+                call.respond(updateInfo(call))
+            }
         }
     }
     server.start(wait = true)
@@ -61,7 +64,7 @@ data class SessionCreate(val session: Session, val sessionJoin: SessionJoin)
 private suspend fun initSession(call: ApplicationCall) {
     val sessionCreate = call.receive<SessionCreate>()
     sessions[sessionCreate.session.uuid] = sessionCreate.session
-    val user = User(sessionCreate.sessionJoin.name, true, sessionCreate.sessionJoin.id)
+    val user = User(sessionCreate.sessionJoin.name, true, sessionCreate.session.uuid)
     users[user.uuid] = user
     sessionCreate.session.users.add(user)
     call.sessions.set("SESSION", SessionCookie(user.uuid))
@@ -101,7 +104,9 @@ private suspend fun joinSession(call: ApplicationCall) {
         users[user.uuid] = user
         session?.users?.add(user)
         call.sessions.set("SESSION", SessionCookie(user.uuid))
-        call.respond(mapOf("OK" to true))
+        val update = updateInfo(call)
+        update["OK"] = true
+        call.respond(update)
     } else {
         call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
     }
@@ -122,8 +127,10 @@ private suspend fun updateInfo(call: ApplicationCall): HashMap<String, Any> {
     val map = hashMapOf<String, Any>()
     if(session != null) {
         val user = users[session.uuid]
-        val usersList = users.keys().toList()
-        map["users"] = usersList
+        val sessionID = user?.session
+        val usersList = sessions[sessionID]?.users
+        if (usersList!=null)
+            map["users"] = usersList
     }
     return map
 }
