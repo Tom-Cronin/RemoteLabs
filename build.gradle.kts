@@ -6,6 +6,8 @@
 
 import org.gradle.jvm.tasks.Jar
 
+val ktor_version = "1.3.2"
+
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.3.70"
@@ -18,13 +20,17 @@ repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    implementation("com.beust:klaxon:5.2")
+    implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("io.ktor:ktor-jackson:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.+")
 
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

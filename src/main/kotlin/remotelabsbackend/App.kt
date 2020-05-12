@@ -1,157 +1,129 @@
 package remotelabsbackend
 
-import java.io.OutputStream
-import java.net.ServerSocket
-import java.net.Socket
-import java.nio.charset.Charset
-import java.util.*
 import java.util.concurrent.*
-import com.beust.klaxon.Klaxon
 
-val uuids = ConcurrentHashMap<String, Socket>()
-val connections = ConcurrentHashMap<Socket, User>()
-var adminPassword: String = ""
-var userPassword: String = ""
+import io.ktor.application.*
+import io.ktor.http.*
+import io.ktor.response.*
+import io.ktor.request.*
+import io.ktor.routing.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.jackson.*
+import io.ktor.features.*
+import io.ktor.sessions.*
+import com.fasterxml.jackson.databind.*
+
+val users = ConcurrentHashMap<String, User>()
 val helpQueue = ConcurrentLinkedQueue<String>()
-val commPairs = CopyOnWriteArrayList<Pair<Socket, Socket>>()
+val commPairs = CopyOnWriteArrayList<Pair<String, String>>()
+val sessions = ConcurrentHashMap<String, Session>()
 
 fun main(args: Array<String>) {
-    if (args.size> 0) {
-        adminPassword = args[0]
-    }
-    if (args.size> 1) {
-        userPassword = args[1]
-    }
-    startTCPServer()
+    startHTTPServer()
 
 }
 
-private fun startTCPServer() {
-    Thread({ val server = ServerSocket(6969)
-        while (true) {
-            val client = server.accept()
-            println("Client connected: ${client.inetAddress.hostAddress}")
+data class SessionCookie(val uuid: String)
 
-            Thread({ ClientHandler(client).run() }).start()
-        }
-    }).start()
-}
-
-class ClientHandler(client: Socket) {
-    private val client: Socket = client
-    private val reader: Scanner = Scanner(client.inputStream)
-    private val writer: OutputStream = client.outputStream
-    private val ip: String = client.inetAddress.hostAddress
-    private var running = false
-
-    fun run() {
-        running = true
-        initConnection()
-        if(!running) {
-            return
-        }
-        updateAll()
-        serveUser()
-    }
-
-    private fun initConnection() {
-        try {
-            val text = reader.nextLine()
-            val args = text.split(":")
-            var admin = false
-            if (args.size > 1 && adminPassword != "") {
-                if (args[1] == adminPassword) {
-                    admin = true
-                }
+private fun startHTTPServer() {
+    val server = embeddedServer(Netty, port = 8080) {
+        install(ContentNegotiation) {
+            jackson() {
             }
-            if (userPassword != "" && !admin) {
-                if (args.size <= 1 || args[1] != userPassword) {
-                    shutdown()
-                    return
-                }
+        }
+        install(Sessions) {
+            cookie<SessionCookie>("SESSION")
+        }
+        routing {
+            post("/start") {
+                initSession(call)
             }
-            val user = User(args[0], admin)
-            connections[client] = user
-            uuids[user.uuid] = client
-            // write("Connected successfully\n" +
-            //     "Hello ${args[0]}\n" +
-            //     "Privelege=" + if (connections[client]?.admin == true)"Admin" else "User")
-        } catch (e: Exception) {
-            shutdown()
-            return
-        }
-    }
-
-    private fun serveUser() {
-        try {
-            while (running) {
-                val text = reader.nextLine()
-                val args = text.split(":")
-                if(connections[client]?.admin != true && text == "help") {
-                    if(helpQueue.contains(connections[client]?.uuid)) {
-                        helpQueue.remove(connections[client]?.uuid)
-                    } else {
-                        helpQueue.add(connections[client]?.uuid)
-                    }
-                    updateAdmins()
-                }
-                if(connections[client]?.admin == true && args[0] == "help") {
-                    if(args.size == 1) {
-                        connect(client, uuids[helpQueue.peek()]!!)
-                    } else {
-                        connect(client, helpQueue.toArray(arrayOf<Socket>())[args[1].toInt()])
-                    }
-                }
+            post("/stop") {
+                stopSession(call)
             }
-        } finally {
-            shutdown()
-            return
+            post("/join") {
+                joinSession(call)
+            }
+            post("/help") {
+                help(call)
+            }
         }
     }
-
-    private fun write(message: String) {
-        write(writer, message)
-    }
-
-    private fun shutdown() {
-        running = false
-        uuids.remove(connections[client]?.uuid)
-        connections.remove(client)
-        client.close()
-        println("Client disconnected: $ip")
-    }
+    server.start(wait = true)
 }
 
-fun usersString(): String {
-    return Klaxon().toJsonString(connections.values)
+data class SessionCreate(val session: Session, val sessionJoin: SessionJoin)
+
+private suspend fun initSession(call: ApplicationCall) {
+    val sessionCreate = call.receive<SessionCreate>()
+    sessions[sessionCreate.session.uuid] = sessionCreate.session
+    val user = User(sessionCreate.sessionJoin.name, true, sessionCreate.sessionJoin.id)
+    users[user.uuid] = user
+    sessionCreate.session.users.add(user)
+    call.sessions.set("SESSION", SessionCookie(user.uuid))
+    val update = updateInfo(call)
+    update["OK"] = true
+    update["ID"] = sessionCreate.session.uuid
+    call.respond(update)
 }
 
-fun write(writer: OutputStream, message: String) {
-    writer.write((message + "\n").toByteArray(Charset.defaultCharset()))
-}
-
-fun updateAll() {
-    val message = usersString()
-    for((key, _) in connections) {
-        val writer = key.outputStream
-        write(writer, message)
-    }
-}
-
-fun helpsString(): String {
-    return Klaxon().toJsonString(helpQueue)
-}
-
-fun updateAdmins() {
-    val message = helpsString()
-    for((key, value) in connections) {
-        if(value.admin) {
-            val writer = key.outputStream
-            write(writer, message)
+private suspend fun stopSession(call: ApplicationCall) {
+    val session = call.sessions.get<SessionCookie>()
+    if(session != null) {
+        val user = users[session.uuid]
+        if(user?.admin == true) {
+            sessions.remove(user.session)
+            call.respond(mapOf("OK" to true))
+        } else {
+            call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
         }
+    } else {
+        call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
     }
 }
 
-fun connect(from: Socket, to: Socket) {
-    commPairs.add(Pair(from, to))
+data class SessionJoin(val name: String, val id: String = "", val password: String = "")
+
+private suspend fun joinSession(call: ApplicationCall) {
+    val sessionJoin = call.receive<SessionJoin>()
+    val session = sessions[sessionJoin.id]
+    var admin = false
+    if(session?.adminPassword == sessionJoin.password) {
+        admin = true
+    }
+
+    if(admin == true || session?.userPassword == sessionJoin.password) {
+        val user = User(sessionJoin.name, admin, sessionJoin.id)
+        users[user.uuid] = user
+        session?.users?.add(user)
+        call.sessions.set("SESSION", SessionCookie(user.uuid))
+        call.respond(mapOf("OK" to true))
+    } else {
+        call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
+    }
+}
+
+private suspend fun leaveSession(call: ApplicationCall) {
+    val session = call.sessions.get<SessionCookie>()
+    if(session != null) {
+        users.remove(session.uuid)
+    } else {
+        call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
+    }
+}
+
+private suspend fun updateInfo(call: ApplicationCall): HashMap<String, Any> {
+    val session = call.sessions.get<SessionCookie>()
+    val map = hashMapOf<String, Any>()
+    if(session != null) {
+        val user = users[session.uuid]
+        val usersList = users.keys().toList()
+        map["users"] = usersList
+    }
+    return map
+}
+
+private suspend fun help(call: ApplicationCall) {
+
 }
