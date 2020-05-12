@@ -45,6 +45,9 @@ private fun startHTTPServer() {
             post("/join") {
                 joinSession(call)
             }
+            post("/leave") {
+                leaveSession(call)
+            }
             post("/help") {
                 help(call)
             }
@@ -107,6 +110,7 @@ private suspend fun joinSession(call: ApplicationCall) {
 private suspend fun leaveSession(call: ApplicationCall) {
     val session = call.sessions.get<SessionCookie>()
     if(session != null) {
+        sessions[users[session.uuid]?.session]?.users?.remove(users[session.uuid])
         users.remove(session.uuid)
     } else {
         call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
