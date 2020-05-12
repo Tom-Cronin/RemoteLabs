@@ -17,6 +17,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { HostPageSetupComponent } from './host-page-setup/host-page-setup.component';
 import { AppRoutingModule } from './app-routing.module'
 
+import { HttpClientModule } from '@angular/common/http'
+
 
 
 
@@ -37,6 +39,7 @@ import { AppRoutingModule } from './app-routing.module'
     MatInputModule,
     ReactiveFormsModule,
     MatGridListModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

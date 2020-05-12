@@ -1,11 +1,11 @@
-const { app, BrowserWindow } = require("electron");
+const { ipcMain, app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({ width: 800, height: 600, webPreferences: { nodeIntegration: true } });
 
   // load the dist folder from Angular
   win.loadURL(
