@@ -13,7 +13,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
-import { MatGridListModule } from '@angular/material/grid-list'
+import { MatGridListModule } from '@angular/material/grid-list';
+import { HostPageSetupComponent } from './host-page-setup/host-page-setup.component';
+import { AppRoutingModule } from './app-routing.module'
 
 import { HttpClientModule } from '@angular/common/http'
 
@@ -23,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http'
 @NgModule({
   declarations: [
     AppComponent,
-    StartPageComponent
+    StartPageComponent,
+    HostPageSetupComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http'
     MatInputModule,
     ReactiveFormsModule,
     MatGridListModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

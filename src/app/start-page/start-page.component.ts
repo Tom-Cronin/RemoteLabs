@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { Component, OnInit, OnDestroy , Inject, Input, Output } from '@angular/core';
+import { GlobalUser } from '../user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 var headers = new HttpHeaders();
@@ -12,24 +12,26 @@ let options = { headers: headers, withCredentials: true };
   templateUrl: './start-page.component.html',
   styleUrls: ['./start-page.component.css']
 })
-export class StartPageComponent implements OnInit {
-  user: User = {
-    name: null,
-    hostType: null
-  }
-  title = "Welcome to RemoteLabs"
-  constructor(private http: HttpClient) {
 
-  }
+ 
+export class StartPageComponent implements OnInit, OnDestroy {
+
+  
+  title = "Welcome to RemoteLabs"
+  user = GlobalUser
+  constructor(private http: HttpClient) { }
   
   
 
   ngOnInit(){
   }
+
+  ngOnDestroy() {
+  }
   
   activateButton(): boolean {
-    if (this.user.name === null || this.user.name.trim() === ''){
-      return false;
+    if (GlobalUser.user === null || GlobalUser.user.trim() === ''){
+      return false
     }
     return true;
   }
@@ -37,19 +39,21 @@ export class StartPageComponent implements OnInit {
   
   
   makeUserTypeClient(): void {
-    this.user.hostType = 'client';
+    GlobalUser.userType = 'client';
 
     this.http.post<Result>("http://127.0.0.1:8080/join", {name: this.user.name, id: "", password: ""}, options).subscribe(result => {
     })
+    
   }
 
+
   makeUserTypeHost(): void {
-    this.user.hostType = 'host';
+    GlobalUser.userType = 'host';
 
     this.http.post<Result>("http://127.0.0.1:8080/start", {session:{}, sessionJoin: {name: this.user.name}}, options).subscribe(result => {
     })
+    
   }
-
 }
 
 class Result {
