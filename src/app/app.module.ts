@@ -16,9 +16,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { HostPageSetupComponent } from './host-page-setup/host-page-setup.component';
 import { AppRoutingModule } from './app-routing.module'
+import { CodemirrorComponent } from './codemirror/codemirror.component'
 
 import { HttpClientModule } from '@angular/common/http'
-
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 
 
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http'
   declarations: [
     AppComponent,
     StartPageComponent,
-    HostPageSetupComponent
+    HostPageSetupComponent,
+    CodemirrorComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http'
     ReactiveFormsModule,
     MatGridListModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CodemirrorModule
   ],
   providers: [],
   bootstrap: [AppComponent],
