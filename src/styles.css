@@ -13,7 +13,8 @@ Ogham stone [off yellow] #C6893F
 Earth Red #B46A55
 */
  
-
+@import "~codemirror/lib/codemirror";
+@import "~codemirror/theme/material";
 html, body { height: 100%; background-color: #BBBCBC; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 

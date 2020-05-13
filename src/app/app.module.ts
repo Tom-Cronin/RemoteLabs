@@ -23,6 +23,9 @@ import { LabPageComponent } from './lab-page/lab-page.component';
 import { ActiveStudentsComponent } from './active-students/active-students.component';
 
 
+import { CodemirrorComponent } from './codemirror/codemirror.component'
+
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 
 
@@ -33,7 +36,8 @@ import { ActiveStudentsComponent } from './active-students/active-students.compo
     HostPageSetupComponent,
     JoinPageComponent,
     LabPageComponent,
-    ActiveStudentsComponent
+    ActiveStudentsComponent,
+    CodemirrorComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ import { ActiveStudentsComponent } from './active-students/active-students.compo
     MatGridListModule,
     HttpClientModule,
     AppRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    CodemirrorModule
   ],
   providers: [],
   bootstrap: [AppComponent],
