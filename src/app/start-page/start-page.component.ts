@@ -53,13 +53,8 @@ export class StartPageComponent implements OnInit, OnDestroy {
   makeUserTypeClient(): void {
     GlobalUser.userType = 'client';
 
-    this.okCheck = this.http.post<Result>("http://feynman.netsoc.co:8080/join", {name: this.user.name, id: "", password: ""}, options)
-    .pipe(
-     map((data: any) => {
-       return data;
-     }), catchError( error => {
-       return throwError( 'Something went wrong!' );
-     }))  
+    this.okCheck = this.http.post<Result>("http://feynman.netsoc.co:8080/dev/", {name: this.user.name, id: "", password: ""}, options)
+   
 
      console.log(this.okCheck.ID);
     

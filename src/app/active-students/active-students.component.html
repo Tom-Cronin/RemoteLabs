@@ -1,7 +1,8 @@
 <mat-grid-list cols="2" rowHeight="4:1">
-    <mat-grid-tile>Insert Name</mat-grid-tile>
-    <mat-grid-tile>Insert Name</mat-grid-tile>
-    <mat-grid-tile>Insert Name</mat-grid-tile>
-    <mat-grid-tile>Insert Name</mat-grid-tile>
+    <mat-grid-tile *ngFor="let student of students">
+        {{student.name}}
+    </mat-grid-tile>
+  
+    
 </mat-grid-list>
   
