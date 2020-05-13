@@ -40,8 +40,10 @@ private fun startHTTPServer() {
         // }
         install(CORS) {
             method(HttpMethod.Post)
+            header(HttpHeaders.Vary)
             allowCredentials = true
             anyHost()
+            allowNonSimpleContentTypes = true
         }
         routing {
             post("/start") {
