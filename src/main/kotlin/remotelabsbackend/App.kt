@@ -46,6 +46,26 @@ private fun startHTTPServer() {
             allowNonSimpleContentTypes = true
         }
         routing {
+            route("/dev") {
+                post("/start") {
+                    initDevSession(call)
+                }
+                post("/stop") {
+                    stopDevSession(call)
+                }
+                post("/join") {
+                    joinDevSession(call)
+                }
+                post("/leave") {
+                    leaveDevSession(call)
+                }
+                post("/help") {
+                    helpDev(call)
+                }
+                post("/") {
+                    call.respond(updateDevInfo(call))
+                }
+            }
             post("/start") {
                 initSession(call)
             }
