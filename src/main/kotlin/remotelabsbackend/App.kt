@@ -33,15 +33,10 @@ private fun startHTTPServer() {
             }
         }
         install(Sessions) {
-            cookie<SessionCookie>("SESSION") {
-                cookie.extensions["SameSite"] = "Strict"
-            }
+            cookie<SessionCookie>("SESSION")
         }
-        install(CORS) {
-            method(HttpMethod.Options)
-            anyHost()
-            allowCredentials = true
-            allowNonSimpleContentTypes = true
+        install(DefaultHeaders) {
+            header("Access-Control-Allow-Origin", "*")
         }
         routing {
             post("/start") {
