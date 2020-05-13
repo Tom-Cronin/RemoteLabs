@@ -33,7 +33,9 @@ private fun startHTTPServer() {
             }
         }
         install(Sessions) {
-            cookie<SessionCookie>("SESSION")
+            cookie<SessionCookie>("SESSION") {
+                cookie.extensions["SameSite"] = "Strict"
+            }
         }
         routing {
             post("/start") {
@@ -129,12 +131,27 @@ private suspend fun updateInfo(call: ApplicationCall): HashMap<String, Any> {
         val user = users[session.uuid]
         val sessionID = user?.session
         val usersList = sessions[sessionID]?.users
-        if (usersList!=null)
+        if (usersList != null)
             map["users"] = usersList
     }
     return map
 }
 
 private suspend fun help(call: ApplicationCall) {
-
+    val session = call.sessions.get<SessionCookie>()
+    if(session != null) {
+        val user = users[session.uuid]
+        if(user != null) {
+            if(user.admin){
+                
+            } else {
+                helpQueue.add(session.uuid)
+                call.respond(mapOf("OK" to true))
+            }
+        } else {
+            call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
+        }
+    } else {
+        call.respond(HttpStatusCode.Forbidden, mapOf("OK" to false))
+    }
 }
