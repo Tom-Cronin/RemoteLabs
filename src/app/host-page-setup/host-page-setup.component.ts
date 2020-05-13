@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalUser } from '../user'
+import { GlobalUser } from '../user';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-host-page-setup',
@@ -9,9 +11,13 @@ import { GlobalUser } from '../user'
 export class HostPageSetupComponent implements OnInit {
 
   user = GlobalUser
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    
   }
 
+
+  
+  
 }

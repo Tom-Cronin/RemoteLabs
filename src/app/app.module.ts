@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { StartPageComponent } from './start-page/start-page.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -18,6 +19,8 @@ import { HostPageSetupComponent } from './host-page-setup/host-page-setup.compon
 import { AppRoutingModule } from './app-routing.module';
 import { JoinPageComponent } from './join-page/join-page.component'
 import { HttpClientModule } from '@angular/common/http';
+import { LabPageComponent } from './lab-page/lab-page.component';
+import { ActiveStudentsComponent } from './active-students/active-students.component';
 
 
 
@@ -28,7 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     StartPageComponent,
     HostPageSetupComponent,
-    JoinPageComponent
+    JoinPageComponent,
+    LabPageComponent,
+    ActiveStudentsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatGridListModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
