@@ -61,7 +61,7 @@ export class StartPageComponent implements OnInit, OnDestroy {
        return throwError( 'Something went wrong!' );
      }))  
 
-     console.log(this.okCheck);
+     console.log(this.okCheck.ID);
     
   }
 

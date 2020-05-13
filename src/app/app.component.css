@@ -1,0 +1,33 @@
+/* 
+Ucc crest red: #CE1F2C
+Ucc crest blue: #003C69
+Ucc crest yellow #FFB500
+
+ucc secondary palette----
+
+Dawn Mauve [off puprle] #7566A0
+Ogham stone [off yellow] #C6893F
+Earth Red #B46A55
+*/
+ 
+
+
+button {
+    color: white
+}
+
+.client {
+    background-color: #CE1F2C
+}
+
+.host {
+    background-color: #003C69
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #FFB500;
+}
+
+mat-grid-list {
+    padding-top: 50px;
+}
