@@ -37,6 +37,12 @@ private fun startHTTPServer() {
                 cookie.extensions["SameSite"] = "Strict"
             }
         }
+        install(CORS) {
+            method(HttpMethod.Options)
+            anyHost()
+            allowCredentials = true
+            allowNonSimpleContentTypes = true
+        }
         routing {
             post("/start") {
                 initSession(call)
