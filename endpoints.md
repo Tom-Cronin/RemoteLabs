@@ -5,7 +5,7 @@
 ## /start
 ### Starts a session with given access credentials and joins with given name
 #### Request:
-```json
+```
 {
     "session": {
         "adminPassword": Password needed to join as an admin,
