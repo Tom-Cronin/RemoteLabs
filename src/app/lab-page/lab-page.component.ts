@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalUser} from "../user"
+import { GlobalUser, conectedCount} from "../user"
 
 @Component({
   selector: 'app-lab-page',
@@ -9,9 +9,12 @@ import { GlobalUser} from "../user"
 export class LabPageComponent implements OnInit {
 
   user: GlobalUser
-  constructor() { }
 
+  constructor() { }
+  conections= conectedCount
+  
   ngOnInit(): void {
+   
   }
 
   isUserHost(): boolean {
